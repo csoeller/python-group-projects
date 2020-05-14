@@ -1,5 +1,9 @@
+# emacs and mac related git ignore file patterns 
 *~
 .DS_Store
+.#*
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
