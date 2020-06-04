@@ -1,0 +1,47 @@
+---
+- localisations.ProcessColour:
+    input: Localizations
+    output: colour_mapped
+- tablefilters.FilterTable:
+    outputName: filtered_localizations
+    inputName: colour_mapped
+    filters:
+      A:
+      - 5
+      - 20000
+      error_x:
+      - 0
+      - 30
+      sig:
+      - 95
+      - 200
+      error_y:
+      - 0
+      - 30
+- tracking.FindClumps:
+    outputName: with_clumps
+    inputName: filtered_localizations
+    outputClumps: clumps
+- localisations.MergeClumps:
+    outputName: coalesced
+    inputName: with_clumps
+- tablefilters.FilterTable:
+    outputName: cytosolC
+    inputName: coalesced
+    filters:
+      y:
+      - 11849.684015891136
+      - 15169.74792391106
+      x:
+      - 13192.982362123868
+      - 17220.811831930983
+- tablefilters.FilterTable:
+    outputName: Resized
+    inputName: ROI
+    filters:
+      y:
+      - 250
+      - 750
+      x:
+      - 250
+      - 750
