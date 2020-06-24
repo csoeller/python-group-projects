@@ -1,0 +1,43 @@
+- localisations.ProcessColour:
+    input: Localizations
+    output: colour_mapped
+    species_dyes:
+      beta tubulin: A647
+    species_ratios:
+      beta tubulin: 0.85
+- tablefilters.FilterTable:
+    filters:
+      A:
+      - 5
+      - 20000
+      error_x:
+      - 0
+      - 30
+      error_y:
+      - 0
+      - 30
+      sig:
+      - 95
+      - 200
+    inputName: colour_mapped
+    outputName: filtered_localizations
+- pymenf.DriftCorrectModel:
+    driftCorrParams:
+      a0: 0.023310711607336998
+      a1: 0.030993446707725525
+      a2: 0.0018665738170966506
+      a3: 0.020972343161702156
+      a4: 0.0020700672175735235
+      b0: 0.007552855182439089
+      b1: -0.004437694326043129
+      b2: 0.01654348522424698
+      b3: 0.0010000000474974513
+      b4: 0.007578863762319088
+      c: 0.0
+    driftExprX: x_raw + piecewiseLinear(t, [8.0e+02, 1.4e+03, 2.0e+03, 2.7e+03], [a0,
+      a1, a2, a3, a4])
+    driftExprY: y_raw + piecewiseLinear(t, [8.0e+02, 1.4e+03, 2.0e+03, 2.7e+03], [b0,
+      b1, b2, b3, b4])
+    inputName: filtered_localizations
+    outputName: drift_corrected
+    presets: Piecewise Linear
